@@ -10,6 +10,10 @@ type Tree[T constraints.Ordered] struct {
 	Right *Tree[T]
 }
 
+func New[T constraints.Ordered](root T) *Tree[T] {
+	return &Tree[T]{value: root}
+}
+
 func (t *Tree[T]) Insert(val T) {
 	if t == nil {
 		(*t) = Tree[T]{value: val}
@@ -21,9 +25,18 @@ func (t *Tree[T]) Insert(val T) {
 	}
 
 	if val < t.value {
-		return t.Left.Insert(val)	
+		if t.Left == nil {
+			t.Left = &Tree[T]{value: val}
+			return
+		}
+		t.Left.Insert(val)
+		return
 	}
 
-	return t.Right.Insert(val)
+	if t.Right == nil {
+		t.Right = &Tree[T]{value: val}
+		return
+	}
+	t.Right.Insert(val)
 
 }

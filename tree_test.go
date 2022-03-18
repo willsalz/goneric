@@ -13,16 +13,15 @@ func TestNewTree(t *testing.T) {
 		{
 			desc:   "happy path",
 			root:   5,
-			values: []int{1, 2, 3},
+			values: []int{4, 6, 3},
 		},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.desc, func(t *testing.T) {
-			tr := &Tree[int]{}
+			tr := New[int](tc.root)
 			for _, val := range tc.values {
 				tr.Insert(val)
 			}
-			t.Fatal(tr)
 		})
 	}
 }
